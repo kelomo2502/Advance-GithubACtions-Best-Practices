@@ -4,7 +4,7 @@
   "description": "This is a sophisticated aspects of GitHub Actions, learning how to craft maintainable workflows, optimize performance, and prioritize security automation processes.",
   "main": "server.js",
   "scripts": {
-    "start":"nodemon app.js",
+    "start": "nodemon server.js",
     "test": "jest",
     "build": "echo 'No build step required'"
   },
@@ -14,7 +14,9 @@
   "dependencies": {
     "express": "^4.21.2",
     "jest": "^29.7.0",
-    "nodemon": "^3.1.9",
     "supertest": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
