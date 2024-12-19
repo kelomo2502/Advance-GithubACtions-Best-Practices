@@ -1,27 +1,29 @@
-name: Versioning
+name: Release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Build", "Versioning"]
+    types:
+      - completed
 
 jobs:
-  version:
+  create-release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Create a Release
+        uses: ncipollo/release-action@v1
         with:
-          node-version: '20.8.1'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Semantic Release
+          tag: v1.${{ github.run_number }}
+          body: |
+            ## Release Notes
+            This release was automatically created by GitHub Actions.
+            - **Tag:** v1.${{ github.run_number }}
+            - **Description:** Add your custom details here.
+          draft: false
+          prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.VERSION_TOKEN }}
-        run: npx semantic-release
+          GH_TOKEN: ${{ secrets.VERSION_TOKEN }}  # Ensure this is your GitHub token secret name
