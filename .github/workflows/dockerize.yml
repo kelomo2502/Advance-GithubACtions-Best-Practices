@@ -1,16 +1,13 @@
 name: Dockerize
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
 
 jobs:
   dockerize:
-    needs: [build]  # This ensures the "build" job must complete before this job runs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
