@@ -19,9 +19,9 @@ jobs:
           node-version: '20.8.1'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run Semantic Release
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
