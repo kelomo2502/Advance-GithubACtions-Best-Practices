@@ -11,12 +11,12 @@ on:
 
 jobs:
   build:
-    uses: ./.github\workflows/build.yml
+    uses: ./.github/workflows/build.yml
 
   dockerize:
     needs: [build]
-    uses: ./.github\workflows/dockerize.yml
+    uses: ./.github/workflows/dockerize.yml
 
   deploy:
     needs: [dockerize]
-    uses: ./.github\workflows/deploy.yml
+    uses: ./.github/workflows/deploy.yml
