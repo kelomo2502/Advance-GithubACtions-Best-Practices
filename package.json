@@ -6,7 +6,7 @@
   "scripts": {
     "start":"nodemon app.js",
     "test": "jest",
-    "build":"no build"
+    "build": "echo 'No build step required'"
   },
   "keywords": [],
   "author": "",
