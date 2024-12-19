@@ -25,3 +25,5 @@ jobs:
             - **Description:** Add your custom details here.
           draft: false
           prerelease: false
+        env:
+          GITHUB__TOKEN: ${{ secrets.VERSION_TOKEN }}  # Ensure this is your GitHub token secret name
