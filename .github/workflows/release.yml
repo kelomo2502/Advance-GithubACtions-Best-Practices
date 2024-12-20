@@ -1,29 +1,27 @@
-name: Release
-
+name: Create release
 on:
-  workflow_run:
-    workflows: ["Build", "Versioning"]
-    types:
-      - completed
-
+    push:
+      tags:
+        - '*'  # Trigger the workflow for all tag pushes
 jobs:
-  create-release:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Create a Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: v1.${{ github.run_number }}
-          body: |
-            ## Release Notes
-            This release was automatically created by GitHub Actions.
-            - **Tag:** v1.${{ github.run_number }}
-            - **Description:** Add your custom details here.
-          draft: false
-          prerelease: false
-        env:
-          GH_TOKEN: ${{ secrets.VERSION_TOKEN }}  # Ensure this is your GitHub token secret name
+    build:
+      name: Create Release
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+          # Checks out the code in the tag that triggered the workflow.
+    
+        - name: Create Release
+          id: create_release
+          uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.VERSION_TOKEN }}
+          with:
+            tag_name: ${{ github.ref }}  # This is the reference to the tag
+            release_name: Release ${{ github.ref }}  # The release name, can use the tag name here
+            body: |
+              This is an automated release based on tag ${{ github.ref }}
+            draft: false
+            prerelease: false
+  
